@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Management</title>
+    <link rel="icon" href="./public/fav.png" />
+
+    <!-- Primary Meta Tags -->
+    <title>SWD Cart Management</title>
+    <meta name="title" content="SWD Cart Management" />
+    <meta name="description" content="JavaScript App for SWD students" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mms-it.com/" />
+    <meta property="og:title" content="SWD Cart Management" />
+    <meta property="og:description" content="JavaScript App for SWD students" />
+    <meta
+      property="og:image"
+      content="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/27/a2/55/b2/st-james-quarter-is-a.jpg?w=500&h=400&s=1"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://mms-it.com/" />
+    <meta property="twitter:title" content="SWD Cart Management" />
+    <meta
+      property="twitter:description"
+      content="JavaScript App for SWD students"
+    />
+    <meta
+      property="twitter:image"
+      content="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/27/a2/55/b2/st-james-quarter-is-a.jpg?w=500&h=400&s=1"
+    />
+
+    <!-- Meta Tags Generated with https://metatags.io -->
+  </head>
+  <body class="scroll-smooth">
+    <main id="app">
+      <header
+        class="w-full fixed z-50 left-0 right-0 md:w-4/5 px-2 md:px-0 mx-auto py-5 flex justify-between border-b-2 border-neutral-700 bg-white"
+      >
+        <div class="brand font-heading">
+          <h3 class="font-heading font-bold text-2xl">MMS Solutions</h3>
+          <p class="text-neutral-400">E-commerce <b>by ZHH</b></p>
+        </div>
+        <div class="">
+          <!-- search btn -->
+          <button id="searchBtn" class="border border-neutral-700 p-3 active:scale-90 duration-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 stroke-neutral-700 stroke-1"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
+          <!-- cart btn -->
+          <button
+            id="cartBtn"
+            class="border animate__animated border-neutral-700 bg-neutral-700 p-3 relative active:scale-90 duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 stroke-white stroke-1"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+              />
+            </svg>
+
+            <span
+              class="absolute bg-red-500 border-2 border-white text-[10px] flex justify-center items-center text-white w-6 h-6 rounded-full top-0 right-0 translate-x-1/2 -translate-y-1/2"
+              id="cartBtnCount"
+              >0</span
+            >
+          </button>
+        </div>
+      </header>
+
+      <div id="headerSpacer" class="h-28"></div>
+      <div class="w-full md:w-4/5 px-2 md:px-0 mx-auto">
+        <section class="mb-11">
+          <p class="mb-2 text-lg text-neutral-700">Product Categories</p>
+          <div
+            id="categoryLists"
+            class="flex max-w-full overflow-scroll gap-3 justify-stretch"
+          >
+            <button class="categories-badge active">All</button>
+            <div class="hidden last:flex animate-pulse gap-3">
+              <button class="categories-badge">
+                <div class="h-3 w-20 bg-gray-200 rounded-full"></div>
+              </button>
+              <button class="categories-badge">
+                <div class="h-3 w-20 bg-gray-200 rounded-full"></div>
+              </button>
+              <button class="categories-badge">
+                <div class="h-3 w-20 bg-gray-200 rounded-full"></div>
+              </button>
+              <button class="categories-badge">
+                <div class="h-3 w-20 bg-gray-200 rounded-full"></div>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- offcanvas -->
+        <section
+          id="cartUi"
+          class="w-[380px] h-screen translate-x-full bg-neutral-100 fixed z-50 right-0 top-0 border-s-2 border-neutral-700"
+        >
+          <div class="h-full flex flex-col">
+            <div
+              class="cart-header px-3 py-5 flex justify-between border-b-2 border-neutral-700 bg-white"
+            >
+              <div class="">
+                <h3 class="font-bold text-2xl">Shopping Cart</h3>
+                <p class="text-neutral-400">
+                  Your Items Count
+                  <span
+                    class="bg-red-500 text-white text-sm px-2 py-1 rounded"
+                    id="cartCount"
+                    >0</span
+                  >
+                </p>
+              </div>
+
+              <button id="closeCart" class="border border-neutral-700 p-3 active:scale-90 duration-200">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 stroke-neutral-700 stroke-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              id="cartItems"
+              class="cart-items h-auto overflow-scroll scroll-smooth flex-grow p-4"
+            >
+              <div
+                class="h-full hidden last:flex flex-col justify-center items-center"
+              >
+                <img class="w-3/4" src="./public/img/empty-cart.svg" alt="" />
+                <p>There is no Items yet !</p>
+              </div>
+            </div>
+            <div
+              class="cart-footer px-3 py-5 flex flex-col border-t-2 border-neutral-700 bg-white"
+            >
+              <div class="mb-3 text-end">
+                <p class="text-neutral-400">Total Amount</p>
+                <p class="text-3xl">$ <span id="cartTotalAmount">0</span></p>
+              </div>
+              <button
+                id="orderNow"
+                class="block w-full bg-neutral-700 text-white py-3 active:scale-90 duration-200"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- product section -->
+        <section
+          id="productSection"
+          class="mb-10 gap-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
+          <div class="animate-pulse">
+            <div class="h-56 w-full bg-gray-200 rounded-lg"></div>
+          </div>
+          <div class="animate-pulse">
+            <div class="h-56 w-full bg-gray-200 rounded-lg"></div>
+          </div>
+          <div class="animate-pulse">
+            <div class="h-56 w-full bg-gray-200 rounded-lg"></div>
+          </div>
+          <div class="animate-pulse">
+            <div class="h-56 w-full bg-gray-200 rounded-lg"></div>
+          </div>
+        </section>
+
+        <!-- footer -->
+        <footer
+          class="bg-neutral-700 text-white flex justify-between items-center p-3"
+        >
+          <p class="">
+            Copyright &copy; 2023 |
+            <a
+              href="https://mms-it.com/"
+              class="border-b-2 border-green-600 text-green-600 font-bold font-heading"
+              target="_blank"
+              >MMS IT</a
+            >
+          </p>
+          <a
+            href="#headerSpacer"
+            id="scrollToTop"
+            class="border border-white p-2 active:scale-90 duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"
+              />
+            </svg>
+          </a>
+        </footer>
+      </div>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
